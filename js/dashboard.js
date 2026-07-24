@@ -277,6 +277,41 @@ async function renderGoal(entries) {
   circle.setAttribute('stroke-dashoffset', offset.toFixed(1));
 }
 
+// function renderCalendar(entries) {
+//   const grid = document.getElementById('calendar-grid');
+//   const [from] = resolveRangeBounds();
+//   const ref = new Date(from + 'T00:00:00');
+//   const year = ref.getFullYear();
+//   const month = ref.getMonth();
+
+//   const byDate = {};
+//   entries.forEach((e) => { byDate[e.date] = e; });
+
+//   const firstDay = new Date(year, month, 1);
+//   const daysInMonth = new Date(year, month + 1, 0).getDate();
+//   const startOffset = firstDay.getDay();
+
+//   let html = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((d) => `<div class="cal-dow">${d}</div>`).join('');
+
+//   for (let i = 0; i < startOffset; i++) html += `<div class="cal-day empty"></div>`;
+
+//   for (let day = 1; day <= daysInMonth; day++) {
+//     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+//     const entry = byDate[dateStr];
+//     if (entry) {
+//       const savings = Calc.finalSavings(entry);
+//       const cls = savings >= 0 ? 'profit' : 'loss';
+//       html += `<div class="cal-day ${cls}" title="${dateStr}"><span class="d-num">${day}</span><span class="d-val">${savings >= 0 ? '+' : ''}${Math.round(savings)}</span></div>`;
+//     } else {
+//       html += `<div class="cal-day" title="${dateStr}"><span class="d-num">${day}</span></div>`;
+//     }
+//   }
+
+//   grid.innerHTML = html;
+// }
+
+/* ---------- Calendar view (Tracking Sent Home Money) ---------- */
+
 function renderCalendar(entries) {
   const grid = document.getElementById('calendar-grid');
   const [from] = resolveRangeBounds();
@@ -299,9 +334,13 @@ function renderCalendar(entries) {
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     const entry = byDate[dateStr];
     if (entry) {
-      const savings = Calc.finalSavings(entry);
-      const cls = savings >= 0 ? 'profit' : 'loss';
-      html += `<div class="cal-day ${cls}" title="${dateStr}"><span class="d-num">${day}</span><span class="d-val">${savings >= 0 ? '+' : ''}${Math.round(savings)}</span></div>`;
+      // Pull sent home money instead of savings
+      const sentHome = num(entry.sentHome); 
+      const cls = sentHome > 0 ? 'profit' : '';
+      html += `<div class="cal-day ${cls}" title="${dateStr}">
+        <span class="d-num">${day}</span>
+        <span class="d-val">${sentHome > 0 ? '₹' + Math.round(sentHome) : '—'}</span>
+      </div>`;
     } else {
       html += `<div class="cal-day" title="${dateStr}"><span class="d-num">${day}</span></div>`;
     }

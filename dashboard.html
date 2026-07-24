@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Delivery Partner Tracker</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">
+      <div class="brand-badge"><i class="fa-solid fa-motorcycle"></i></div>
+      RouteLedger
+    </div>
+    <div class="nav-links">
+      <a href="dashboard.html" class="active"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">Dashboard</span></a>
+      <a href="index.html"><i class="fa-solid fa-pen-to-square"></i><span class="nav-text">Daily Entry</span></a>
+      <a href="#report" onclick="document.getElementById('report').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-file-lines"></i><span class="nav-text">Monthly Report</span></a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="theme-toggle" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="page-head">
+    <div>
+      <h1>Monthly dashboard</h1>
+      <p>Your full route history, earnings trends, and savings goal — all in one place.</p>
+    </div>
+    <div class="filters-bar" style="gap:8px;">
+      <button class="chip active" data-range="current">This Month</button>
+      <button class="chip" data-range="previous">Last Month</button>
+      <button class="chip" data-range="custom"><i class="fa-regular fa-calendar"></i> Custom</button>
+    </div>
+  </div>
+
+  <div class="card card-pad mt-16" id="custom-range-card" style="display:none;">
+    <div class="form-grid">
+      <div class="field">
+        <label><i class="fa-regular fa-calendar"></i> From</label>
+        <input type="date" id="range-from">
+      </div>
+      <div class="field">
+        <label><i class="fa-regular fa-calendar"></i> To</label>
+        <input type="date" id="range-to">
+      </div>
+      <div class="field" style="justify-content:flex-end;">
+        <button class="btn btn-primary" id="apply-range"><i class="fa-solid fa-check"></i> Apply Range</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today's snapshot -->
+  <div class="stat-grid mt-24">
+    <div class="card stat-card tone-green"><div class="stat-icon"><i class="fa-solid fa-sack-dollar"></i></div><div class="stat-label">Today's Earnings</div><div class="stat-value" id="s-today-earn">₹0</div></div>
+    <div class="card stat-card tone-red"><div class="stat-icon"><i class="fa-solid fa-receipt"></i></div><div class="stat-label">Today's Expenses</div><div class="stat-value" id="s-today-exp">₹0</div></div>
+    <div class="card stat-card tone-orange"><div class="stat-icon"><i class="fa-solid fa-piggy-bank"></i></div><div class="stat-label">Today's Savings</div><div class="stat-value" id="s-today-save">₹0</div></div>
+  </div>
+
+  <!-- Monthly snapshot -->
+  <div class="stat-grid">
+    <div class="card stat-card tone-green"><div class="stat-icon"><i class="fa-solid fa-coins"></i></div><div class="stat-label">Monthly Earnings</div><div class="stat-value" id="s-month-earn">₹0</div></div>
+    <div class="card stat-card tone-red"><div class="stat-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div><div class="stat-label">Monthly Expenses</div><div class="stat-value" id="s-month-exp">₹0</div></div>
+    <div class="card stat-card tone-orange"><div class="stat-icon"><i class="fa-solid fa-vault"></i></div><div class="stat-label">Monthly Savings</div><div class="stat-value" id="s-month-save">₹0</div></div>
+    <div class="card stat-card tone-yellow"><div class="stat-icon"><i class="fa-solid fa-house-chimney"></i></div><div class="stat-label">Total Sent Home</div><div class="stat-value" id="s-sent-home">₹0</div></div>
+    <div class="card stat-card tone-green"><div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div><div class="stat-label">Avg Daily Earnings</div><div class="stat-value" id="s-avg-earn">₹0</div></div>
+    <div class="card stat-card tone-orange"><div class="stat-icon"><i class="fa-solid fa-chart-simple"></i></div><div class="stat-label">Avg Daily Savings</div><div class="stat-value" id="s-avg-save">₹0</div></div>
+    <div class="card stat-card tone-green"><div class="stat-icon"><i class="fa-solid fa-trophy"></i></div><div class="stat-label">Highest Earnings Day</div><div class="stat-value" id="s-high-earn">—</div></div>
+    <div class="card stat-card tone-orange"><div class="stat-icon"><i class="fa-solid fa-medal"></i></div><div class="stat-label">Highest Savings Day</div><div class="stat-value" id="s-high-save">—</div></div>
+  </div>
+
+  <!-- Goal + Calendar -->
+  <div class="grid-2 mt-24">
+    <div class="card card-pad goal-card fade-in">
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 120 120" width="150" height="150">
+          <defs>
+            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ff7a3d" />
+              <stop offset="100%" stop-color="#34d399" />
+            </linearGradient>
+          </defs>
+          <circle class="gauge-track" cx="60" cy="60" r="52" />
+          <circle class="gauge-fill" id="gauge-circle" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7" />
+        </svg>
+        <div class="gauge-center">
+          <div class="pct" id="gauge-pct">0%</div>
+          <div class="lbl">of goal</div>
+        </div>
+      </div>
+      <div class="goal-details">
+        <div class="section-title" style="margin-bottom:2px;"><i class="fa-solid fa-flag-checkered"></i> Monthly Savings Goal</div>
+        <div class="section-sub" style="margin-bottom:8px;">Saved <span id="goal-saved" class="mono">₹0</span> of <span id="goal-target" class="mono">₹30,000</span> this month.</div>
+        <div class="goal-edit">
+          <input type="number" id="goal-input" min="0" step="500" value="30000">
+          <button class="btn btn-sm btn-primary" id="goal-save"><i class="fa-solid fa-check"></i> Set Goal</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-pad fade-in">
+      <div class="section-title"><i class="fa-solid fa-calendar-days"></i> Calendar View</div>
+      <div class="section-sub">Daily savings at a glance — green is profit, red is a loss day.</div>
+      <div class="calendar-grid" id="calendar-grid"></div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-grid mt-24">
+    <div class="card chart-card fade-in">
+      <div class="section-title" style="font-size:0.95rem;"><i class="fa-solid fa-chart-area"></i> Daily Earnings, Expenses &amp; Savings</div>
+      <canvas id="trend-chart"></canvas>
+    </div>
+    <div class="card chart-card fade-in">
+      <div class="section-title" style="font-size:0.95rem;"><i class="fa-solid fa-chart-pie"></i> Expense Distribution</div>
+      <canvas id="expense-pie"></canvas>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card card-pad mt-24 fade-in">
+    <div class="flex-between">
+      <div class="section-title" style="margin-bottom:0;"><i class="fa-solid fa-table-list"></i> Entries</div>
+      <div class="search-input">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="search-date" placeholder="Search by date (YYYY-MM-DD)">
+      </div>
+    </div>
+    <div class="table-wrap mt-16">
+      <table class="data-table" id="main-table">
+        <thead>
+          <tr>
+            <th>Date</th><th>Swiggy</th><th>Zomato</th><th>Other</th><th>Total Earn.</th>
+            <th>Petrol</th><th>Food</th><th>Tea</th><th>Recharge</th><th>Bike</th><th>Misc</th>
+            <th>Total Exp.</th><th>Sent Home</th><th>Savings</th><th>Notes</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="main-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Monthly Report -->
+  <div class="card card-pad mt-24 fade-in" id="report">
+    <div class="section-title"><i class="fa-solid fa-file-invoice"></i> Monthly Report</div>
+    <div class="section-sub">Totals and averages for the currently selected range.</div>
+    <div class="report-grid" id="report-grid"></div>
+  </div>
+
+  <!-- Export -->
+  <div class="card card-pad mt-24 fade-in">
+    <div class="section-title"><i class="fa-solid fa-file-export"></i> Export</div>
+    <div class="dm-row mt-16">
+      <button class="btn btn-success" id="btn-export-csv"><i class="fa-solid fa-file-csv"></i> Export to Excel (CSV)</button>
+      <button class="btn" id="btn-print"><i class="fa-solid fa-print"></i> Print Report</button>
+      <button class="btn" id="btn-pdf"><i class="fa-solid fa-file-pdf"></i> Download as PDF</button>
+    </div>
+  </div>
+
+  <!-- Data management -->
+  <div class="card card-pad mt-24 fade-in">
+    <div class="section-title"><i class="fa-solid fa-database"></i> Data Management</div>
+    <div class="dm-row mt-16">
+      <button class="btn" id="btn-backup"><i class="fa-solid fa-download"></i> Backup Data (JSON)</button>
+      <button class="btn" id="btn-restore"><i class="fa-solid fa-upload"></i> Restore Data</button>
+      <input type="file" id="restore-file" accept="application/json" style="display:none;">
+      <!-- <button class="btn btn-danger" id="btn-delete-all"><i class="fa-solid fa-trash"></i> Delete All Data</button> -->
+    </div>
+  </div>
+
+</div>
+
+<button class="fab" id="fab-add" title="Add new entry" onclick="window.location.href='index.html'"><i class="fa-solid fa-plus"></i></button>
+<div id="toast-region"></div>
+
+<!-- Delete confirmation modal -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal-box">
+    <h3><i class="fa-solid fa-triangle-exclamation"></i> Delete all data?</h3>
+    <p>This permanently removes every saved entry and cannot be undone. Consider taking a backup first.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancel-delete">Cancel</button>
+      <button class="btn btn-danger" id="confirm-delete">Delete Everything</button>
+    </div>
+  </div>
+</div>
+
+<!-- Row delete confirmation modal -->
+<div class="modal-overlay" id="row-delete-modal">
+  <div class="modal-box">
+    <h3><i class="fa-solid fa-triangle-exclamation"></i> Delete this entry?</h3>
+    <p>The entry for <strong id="row-delete-date"></strong> will be permanently removed.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancel-row-delete">Cancel</button>
+      <button class="btn btn-danger" id="confirm-row-delete">Delete Entry</button>
+    </div>
+  </div>
+</div>
+
+<footer>Built for Delivery Partners <i class="fa-solid fa-heart"></i></footer>
+
+<!-- Supabase JS Client CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

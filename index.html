@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Entry · Delivery Partner Tracker</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">
+      <div class="brand-badge"><i class="fa-solid fa-motorcycle"></i></div>
+      RouteLedger
+    </div>
+    <div class="nav-links">
+      <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">Dashboard</span></a>
+      <a href="index.html" class="active"><i class="fa-solid fa-pen-to-square"></i><span class="nav-text">Daily Entry</span></a>
+      <a href="dashboard.html#report"><i class="fa-solid fa-file-lines"></i><span class="nav-text">Monthly Report</span></a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="theme-toggle" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="page-head">
+    <div>
+      <h1>Log today's route</h1>
+      <p>Enter earnings and expenses — totals update as you type.</p>
+    </div>
+    <div class="date-pill" id="clock-pill"><i class="fa-regular fa-clock"></i> —</div>
+  </div>
+
+  <div class="card card-pad fade-in mt-16">
+    <div class="section-title"><i class="fa-solid fa-route"></i> Daily Entry Form</div>
+    <div class="section-sub">Fields marked <span class="required-mark">*</span> are required.</div>
+
+    <form id="entry-form" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="f-date"><i class="fa-regular fa-calendar"></i> Date <span class="required-mark">*</span></label>
+          <input type="date" id="f-date" required>
+          <span class="error-text">Date cannot be empty.</span>
+        </div>
+      </div>
+
+      <div class="route-divider"></div>
+
+      <div class="form-cols">
+        <div>
+          <div class="subgroup-title"><i class="fa-solid fa-sack-dollar" style="color:var(--green)"></i> Delivery App Earnings</div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="f-swiggy"><i class="fa-solid fa-bowl-food"></i> Swiggy Earnings</label>
+              <input type="number" id="f-swiggy" min="0" step="0.01" placeholder="0.00">
+              <span class="error-text">Cannot be negative.</span>
+            </div>
+            <div class="field">
+              <label for="f-zomato"><i class="fa-solid fa-utensils"></i> Zomato Earnings</label>
+              <input type="number" id="f-zomato" min="0" step="0.01" placeholder="0.00">
+              <span class="error-text">Cannot be negative.</span>
+            </div>
+            <div class="field">
+              <label for="f-other"><i class="fa-solid fa-circle-plus"></i> Other Earnings</label>
+              <input type="number" id="f-other" min="0" step="0.01" placeholder="0.00">
+              <span class="error-text">Cannot be negative.</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="subgroup-title"><i class="fa-solid fa-receipt" style="color:var(--orange)"></i> Expenses</div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="f-petrol"><i class="fa-solid fa-gas-pump"></i> Petrol</label>
+              <input type="number" id="f-petrol" min="0" step="0.01" placeholder="0.00">
+              <span class="error-text">Cannot be negative.</span>
+            </div>
+            <div class="field">
+              <label for="f-food"><i class="fa-solid fa-burger"></i> Food</label>
+              <input type="number" id="f-food" min="0" step="0.01" placeholder="0.00">
+              <span class="error-text">Cannot be negative.</span>
+            </div>
+            <div class="field">
+              <label for="f-tea"><i class="fa-solid fa-mug-hot"></i> Tea / Snacks</label>
+              <input type="number" id="f-tea" min="0" step="0.01" placeholder="0.00">
+              <span class="error-text">Cannot be negative.</span>
+            </div>
+            <div class="field">
+              <label for="f-recharge"><i class="fa-solid fa-mobile-screen"></i> Mobile Recharge</label>
+              <input type="number" id="f-recharge" min="0" step="0.01" placeholder="0.00">
+              <span class="error-text">Cannot be negative.</span>
+            </div>
+            <div class="field">
+              <label for="f-bike"><i class="fa-solid fa-screwdriver-wrench"></i> Bike Maintenance</label>
+              <input type="number" id="f-bike" min="0" step="0.01" placeholder="0.00">
+              <span class="error-text">Cannot be negative.</span>
+            </div>
+            <div class="field">
+              <label for="f-misc"><i class="fa-solid fa-ellipsis"></i> Miscellaneous</label>
+              <input type="number" id="f-misc" min="0" step="0.01" placeholder="0.00">
+              <span class="error-text">Cannot be negative.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="route-divider"></div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="f-senthome"><i class="fa-solid fa-house"></i> Money Sent Home</label>
+          <input type="number" id="f-senthome" min="0" step="0.01" value="700">
+          <span class="error-text">Cannot be negative.</span>
+        </div>
+        <div class="field" style="grid-column: span 2;">
+          <label for="f-notes"><i class="fa-regular fa-note-sticky"></i> Notes</label>
+          <textarea id="f-notes" placeholder="Anything worth remembering about today's route..."></textarea>
+        </div>
+      </div>
+
+      <div class="route-divider"></div>
+
+      <div class="section-title" style="font-size:1rem;"><i class="fa-solid fa-calculator"></i> Live Totals</div>
+      <div class="calc-strip mt-16">
+        <div class="calc-box"><div class="lbl">Total Earnings</div><div class="val mono up" id="calc-earnings">₹0</div></div>
+        <div class="calc-box"><div class="lbl">Total Expenses</div><div class="val mono down" id="calc-expenses">₹0</div></div>
+        <div class="calc-box"><div class="lbl">Balance Before Home</div><div class="val mono" id="calc-balance">₹0</div></div>
+        <div class="calc-box"><div class="lbl">Final Savings</div><div class="val mono" id="calc-savings">₹0</div></div>
+      </div>
+
+      <div class="flex-between mt-24">
+        <div style="color:var(--text-muted); font-size:0.76rem;"><i class="fa-solid fa-keyboard"></i> Tip: Ctrl+S saves instantly</div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="btn btn-ghost" id="btn-clear"><i class="fa-solid fa-eraser"></i> Clear Form</button>
+          <button type="submit" class="btn btn-primary" id="btn-save"><i class="fa-solid fa-floppy-disk"></i> Save Entry</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="card card-pad fade-in mt-24" id="recent-card">
+    <div class="flex-between">
+      <div class="section-title" style="margin-bottom:0;"><i class="fa-solid fa-clock-rotate-left"></i> Recent Entries</div>
+      <a href="dashboard.html" class="btn btn-ghost btn-sm">View Full Dashboard <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="table-wrap mt-16">
+      <table class="data-table" id="recent-table">
+        <thead>
+          <tr>
+            <th>Date</th><th>Swiggy</th><th>Zomato</th><th>Other</th><th>Earnings</th>
+            <th>Expenses</th><th>Sent Home</th><th>Savings</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="recent-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<button class="fab" id="fab-add" title="New entry (jump to form)"><i class="fa-solid fa-plus"></i></button>
+<div id="toast-region"></div>
+
+<footer>Built for Delivery Partners <i class="fa-solid fa-heart"></i></footer>
+
+<!-- Supabase JS Client CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

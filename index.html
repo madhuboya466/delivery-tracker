@@ -9,6 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff7a3d">
 </head>
 <body>
 
@@ -16,7 +18,7 @@
   <div class="navbar-inner">
     <div class="brand">
       <div class="brand-badge"><i class="fa-solid fa-motorcycle"></i></div>
-      RouteLedger
+      TraCkeR
     </div>
     <div class="nav-links">
       <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">Dashboard</span></a>
@@ -177,5 +179,10 @@
 <script src="js/config.js"></script>
 <script src="js/storage.js"></script>
 <script src="js/app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
 </body>
 </html>

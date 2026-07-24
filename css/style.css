@@ -321,6 +321,13 @@ h1, h2, h3, h4 {
   border-radius: 999px;
 }
 
+/* Mobile adjustments for forms */
+@media (max-width: 640px) {
+  #f-date {
+    max-width: 80%;
+  }
+}
+
 /* ---------- Summary cards grid ---------- */
 
 .stat-grid {
@@ -577,10 +584,45 @@ table.data-table tbody tr.loss-row td.savings-cell { color: var(--red); font-wei
   grid-template-columns: 2fr 1fr;
   gap: 16px;
 }
+@media (max-width: 900px) { 
+  .charts-grid { grid-template-columns: 1fr; } 
+}
+
+.chart-card { 
+  padding: 20px; 
+  height: 340px; 
+  display: flex; 
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  min-width: 0; /* Prevents flex items from overflowing container */
+}
+
+.chart-card canvas { 
+  flex: 1; 
+  width: 100% !important;
+  max-height: 100%; 
+}
+
+/* Fix mobile canvas height overflow */
+@media (max-width: 640px) {
+  .chart-card {
+    height: 280px;
+    padding: 14px;
+  }
+}
+
+/* ---------- Charts grid ---------- */
+
+/* .charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
 @media (max-width: 900px) { .charts-grid { grid-template-columns: 1fr; } }
 
 .chart-card { padding: 20px; height: 340px; display: flex; flex-direction: column; }
-.chart-card canvas { flex: 1; max-height: 100%; }
+.chart-card canvas { flex: 1; max-height: 100%; } */
 
 /* ---------- Goal gauge (signature) ---------- */
 

@@ -157,7 +157,7 @@ const Storage = {
   },
 
   getTheme() {
-    return localStorage.getItem('dpt_theme_v1') || 'dark';
+    return localStorage.getItem('dpt_theme_v1') || 'light';
   },
   setTheme(theme) {
     localStorage.setItem('dpt_theme_v1', theme);

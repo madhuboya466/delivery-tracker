@@ -16,6 +16,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   initDataManagement();
   restoreLastMonth();
   await render();
+
+  // Request browser notification permission
+  if ('Notification' in window && Notification.permission !== 'granted') {
+    Notification.requestPermission();
+  }
+
+  // Subscribe to real-time changes
+  dbClient
+    .channel('realtime-entries')
+    .on(
+      'postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'entries' },
+      async (payload) => {
+        const newEntry = payload.new;
+        
+        showToast(`New route entry added for ${newEntry.date}!`, 'success');
+        await render();
+
+        if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification('New Entry Logged!', {
+            body: `Date: ${newEntry.date} | Earnings: ₹${Number(newEntry.swiggy || 0) + Number(newEntry.zomato || 0)}`,
+            icon: 'https://cdn-icons-png.flaticon.com/512/2972/2972531.png'
+          });
+        }
+      }
+    )
+    .subscribe();
 });
 
 function initTheme() {

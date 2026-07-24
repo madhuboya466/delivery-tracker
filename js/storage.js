@@ -170,6 +170,29 @@ const Storage = {
     localStorage.setItem('dpt_last_month_v1', ym);
   },
 
+  // async getGoal() {
+  //   try {
+  //     const { data, error } = await dbClient
+  //       .from('user_settings')
+  //       .select('value')
+  //       .eq('key', 'goal')
+  //       .maybeSingle();
+
+  //     if (error || !data) return 30000;
+  //     return Number(data.value) || 30000;
+  //   } catch (e) {
+  //     return 30000;
+  //   }
+  // },
+
+  // async setGoal(val) {
+  //   const { error } = await dbClient
+  //     .from('user_settings')
+  //     .upsert({ key: 'goal', value: String(val) });
+
+  //   if (error) console.error('Storage.setGoal failed', error);
+  // },
+
   async getGoal() {
     try {
       const { data, error } = await dbClient
@@ -178,10 +201,10 @@ const Storage = {
         .eq('key', 'goal')
         .maybeSingle();
 
-      if (error || !data) return 30000;
-      return Number(data.value) || 30000;
+      if (error || !data) return 21000;
+      return Number(data.value) || 21000;
     } catch (e) {
-      return 30000;
+      return 21000;
     }
   },
 
@@ -192,7 +215,7 @@ const Storage = {
 
     if (error) console.error('Storage.setGoal failed', error);
   },
-
+  
   async exportBackup() {
     const entries = await this.getAll();
     const goal = await this.getGoal();

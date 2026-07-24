@@ -84,7 +84,7 @@
     <div class="card stat-card tone-orange"><div class="stat-icon"><i class="fa-solid fa-medal"></i></div><div class="stat-label">Highest Savings Day</div><div class="stat-value" id="s-high-save">—</div></div>
   </div>
 
-  <!-- Goal + Calendar -->
+  <!-- Goal + Calendar
   <div class="grid-2 mt-24">
     <div class="card card-pad goal-card fade-in">
       <div class="gauge-wrap">
@@ -109,6 +109,42 @@
         <div class="goal-edit">
           <input type="number" id="goal-input" min="0" step="500" value="30000">
           <button class="btn btn-sm btn-primary" id="goal-save"><i class="fa-solid fa-check"></i> Set Goal</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-pad fade-in">
+      <div class="section-title"><i class="fa-solid fa-calendar-days"></i> Calendar View</div>
+      <div class="section-sub">Daily savings at a glance — green is profit, red is a loss day.</div>
+      <div class="calendar-grid" id="calendar-grid"></div>
+    </div>
+  </div> -->
+
+  <!-- Goal + Calendar -->
+  <div class="grid-2 mt-24">
+    <div class="card card-pad goal-card fade-in">
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 120 120" width="150" height="150">
+          <defs>
+            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ff7a3d" />
+              <stop offset="100%" stop-color="#34d399" />
+            </linearGradient>
+          </defs>
+          <circle class="gauge-track" cx="60" cy="60" r="52" />
+          <circle class="gauge-fill" id="gauge-circle" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7" />
+        </svg>
+        <div class="gauge-center">
+          <div class="pct" id="gauge-pct">0%</div>
+          <div class="lbl">of goal</div>
+        </div>
+      </div>
+      <div class="goal-details">
+        <div class="section-title" style="margin-bottom:2px;"><i class="fa-solid fa-flag-checkered"></i> Sent Home Target</div>
+        <div class="section-sub" style="margin-bottom:8px;">Sent <span id="goal-sent" class="mono">₹0</span> of <span id="goal-target" class="mono">₹21,000</span> this month.</div>
+        <div class="goal-edit">
+          <input type="number" id="goal-input" min="0" step="500" value="21000">
+          <button class="btn btn-sm btn-primary" id="goal-save"><i class="fa-solid fa-check"></i> Set Target</button>
         </div>
       </div>
     </div>

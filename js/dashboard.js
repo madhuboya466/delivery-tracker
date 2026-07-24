@@ -244,12 +244,29 @@ async function initGoal() {
   });
 }
 
+// async function renderGoal(entries) {
+//   const goal = await Storage.getGoal();
+//   const saved = Math.max(0, sum(entries, Calc.finalSavings));
+//   const pct = goal > 0 ? Math.min(100, Math.round((saved / goal) * 100)) : 0;
+
+//   document.getElementById('goal-saved').textContent = formatCurrency(saved);
+//   document.getElementById('goal-target').textContent = formatCurrency(goal);
+//   document.getElementById('gauge-pct').textContent = pct + '%';
+
+//   const circle = document.getElementById('gauge-circle');
+//   const circumference = 2 * Math.PI * 52;
+//   const offset = circumference - (pct / 100) * circumference;
+//   circle.setAttribute('stroke-dasharray', circumference.toFixed(1));
+//   circle.setAttribute('stroke-dashoffset', offset.toFixed(1));
+// }
+
 async function renderGoal(entries) {
   const goal = await Storage.getGoal();
-  const saved = Math.max(0, sum(entries, Calc.finalSavings));
-  const pct = goal > 0 ? Math.min(100, Math.round((saved / goal) * 100)) : 0;
+  // Compute Total Sent Home across entries in active range
+  const totalSentHome = sum(entries, (e) => num(e.sentHome));
+  const pct = goal > 0 ? Math.min(100, Math.round((totalSentHome / goal) * 100)) : 0;
 
-  document.getElementById('goal-saved').textContent = formatCurrency(saved);
+  document.getElementById('goal-sent').textContent = formatCurrency(totalSentHome);
   document.getElementById('goal-target').textContent = formatCurrency(goal);
   document.getElementById('gauge-pct').textContent = pct + '%';
 

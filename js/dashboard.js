@@ -168,11 +168,36 @@ async function render() {
   }
 }
 
+// async function renderTodayStats() {
+//   const today = await Storage.getByDate(todayISO());
+//   const earn = today ? Calc.totalEarnings(today) : 0;
+//   const exp = today ? Calc.totalExpenses(today) : 0;
+//   const save = today ? Calc.finalSavings(today) : 0;
+//   document.getElementById('s-today-earn').textContent = formatCurrency(earn);
+//   document.getElementById('s-today-exp').textContent = formatCurrency(exp);
+//   document.getElementById('s-today-save').textContent = formatCurrency(save);
+// }
+
+/* ---------- Today's snapshot ---------- */
+
 async function renderTodayStats() {
+  // Find the container holding Today's snapshot stat cards
+  const todayGrid = document.querySelector('.stat-grid'); 
+
+  // If the user selected 'Last Month' or 'Custom', hide Today's Snapshot section
+  if (currentRange.type !== 'current') {
+    if (todayGrid) todayGrid.style.display = 'none';
+    return;
+  }
+
+  // Otherwise, show the grid and compute today's values
+  if (todayGrid) todayGrid.style.display = 'grid';
+
   const today = await Storage.getByDate(todayISO());
   const earn = today ? Calc.totalEarnings(today) : 0;
   const exp = today ? Calc.totalExpenses(today) : 0;
   const save = today ? Calc.finalSavings(today) : 0;
+
   document.getElementById('s-today-earn').textContent = formatCurrency(earn);
   document.getElementById('s-today-exp').textContent = formatCurrency(exp);
   document.getElementById('s-today-save').textContent = formatCurrency(save);

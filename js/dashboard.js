@@ -220,8 +220,8 @@ function renderMonthlyStats(entries) {
   if (entries.length) {
     const highEarn = entries.reduce((a, b) => (Calc.totalEarnings(a) >= Calc.totalEarnings(b) ? a : b));
     const highSave = entries.reduce((a, b) => (Calc.finalSavings(a) >= Calc.finalSavings(b) ? a : b));
-    document.getElementById('s-high-earn').textContent = `${formatCurrency(Calc.totalEarnings(highEarn))} · ${highEarn.date}`;
-    document.getElementById('s-high-save').textContent = `${formatCurrency(Calc.finalSavings(highSave))} · ${highSave.date}`;
+    document.getElementById('s-high-earn').innerHTML = `${formatCurrency(Calc.totalEarnings(highEarn))} <small style="font-size: 0.7em; opacity: 0.75; font-weight: normal;">· ${highEarn.date}</small>`;
+    document.getElementById('s-high-save').innerHTML = `${formatCurrency(Calc.finalSavings(highSave))} <small style="font-size: 0.7em; opacity: 0.75; font-weight: normal;">· ${highSave.date}</small>`;
   } else {
     document.getElementById('s-high-earn').textContent = '—';
     document.getElementById('s-high-save').textContent = '—';
@@ -640,5 +640,3 @@ function initDataManagement() {
     await render();
   });
 }
-
-document.getElementById('s-high-save').innerHTML = `${formatCurrency(Calc.finalSavings(highSave))} <span class="stat-date">· ${highSave.date}</span>`;

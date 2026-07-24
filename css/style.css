@@ -376,13 +376,6 @@ h1, h2, h3, h4 {
   margin-top: 4px;
 }
 
-.stat-value .stat-date {
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  margin-left: 4px;
-}
-
 .tone-orange .stat-icon { background: rgba(255, 122, 61, 0.15); color: var(--orange); }
 .tone-green .stat-icon { background: rgba(52, 211, 153, 0.15); color: var(--green); }
 .tone-red .stat-icon { background: rgba(247, 106, 106, 0.15); color: var(--red); }

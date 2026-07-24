@@ -11,6 +11,10 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff7a3d">
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn-icons-png.flaticon.com/512/2972/2972531.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn-icons-png.flaticon.com/512/2972/2972531.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn-icons-png.flaticon.com/512/2972/2972531.png">
 </head>
 <body>
 
@@ -219,6 +223,32 @@
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js');
+  }
+</script>
+<script>
+  let deferredPrompt;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    
+    // Show a custom Toast or banner to the user
+    showToast('Click here to Install RouteLedger!', 'info');
+  });
+
+  // Optional: Function to trigger install when user clicks a button
+  function installPWA() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        }
+        deferredPrompt = null;
+      });
+    }
   }
 </script>
 </body>

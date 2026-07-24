@@ -640,3 +640,5 @@ function initDataManagement() {
     await render();
   });
 }
+
+document.getElementById('s-high-save').innerHTML = `${formatCurrency(Calc.finalSavings(highSave))} <span class="stat-date">· ${highSave.date}</span>`;

@@ -30,14 +30,13 @@
       RouteLedger
     </div>
     <div class="nav-links">
-      <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">Dashboard</span></a>
-      <a href="index.html" class="active"><i class="fa-solid fa-pen-to-square"></i><span class="nav-text">Daily Entry</span></a>
-      <!-- <a href="dashboard.html#report"><i class="fa-solid fa-file-lines"></i><span class="nav-text">Monthly Report</span></a> -->
+      <a href="dashboard.html" class="active"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">Dashboard</span></a>
+      <a href="index.html"><i class="fa-solid fa-pen-to-square"></i><span class="nav-text">Daily Entry</span></a>
+      <!-- <a href="#report" onclick="document.getElementById('report').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-file-lines"></i><span class="nav-text">Monthly Report</span></a> -->
     </div>
     <div class="nav-actions">
       <button class="icon-btn" id="theme-toggle" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
     </div>
-
     <!-- Logout Button Between Links and Actions -->
     <button 
       onclick="sessionStorage.removeItem('rl_auth'); window.location.href='login.html';" 

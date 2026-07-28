@@ -835,3 +835,12 @@ footer i { color: var(--red); }
   .navbar-inner { padding: 12px 14px; }
   table.data-table { font-size: 0.76rem; }
 }
+
+.logout-btn {
+  color: #ef4444; /* Subtle red color for exit action */
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+}

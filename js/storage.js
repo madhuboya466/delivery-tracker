@@ -267,3 +267,11 @@ function todayISO() {
   const local = new Date(d.getTime() - off * 60000);
   return local.toISOString().slice(0, 10);
 }
+
+function yesterdayISO() {
+  const d = new Date();
+  d.setDate(d.getDate() - 1); // Subtract 1 day
+  const off = d.getTimezoneOffset();
+  const local = new Date(d.getTime() - off * 60000);
+  return local.toISOString().slice(0, 10);
+}

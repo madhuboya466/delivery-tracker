@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - RouteLedger</title>
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login.css">
+
+  <!-- Icons (FontAwesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- External Libraries & App Config -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+
+  <!-- Early Authentication Check -->
+  <script>
+    if (sessionStorage.getItem('rl_auth') === 'true') {
+      window.location.href = 'index.html';
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Decorative Background Glows -->
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <div class="login-card">
+    <div class="brand-badge">
+      <i class="fa-solid fa-route"></i>
+    </div>
+
+    <div class="login-header">
+      <h2>RouteLedger</h2>
+      <p>Enter your credentials to access your dashboard</p>
+    </div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <div class="input-wrapper">
+          <i class="fa-regular fa-user field-icon"></i>
+          <input type="text" id="username" placeholder="Enter username" required autocomplete="username">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-lock field-icon"></i>
+          <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password">
+          <button type="button" id="toggle-password" class="toggle-password" aria-label="Toggle password visibility">
+            <i class="fa-regular fa-eye" id="toggle-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" id="login-btn" class="btn-login">
+        <span>Sign In</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <div id="error" class="error-msg">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span>Invalid username or password!</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- Page Script -->
+  <script src="js/login.js"></script>
+</body>
+</html>

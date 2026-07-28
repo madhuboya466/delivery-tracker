@@ -1,0 +1,9 @@
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Keep JS and CSS cached briefly, but force browser to check for updates
+/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/css/*
+  Cache-Control: public, max-age=0, must-revalidate

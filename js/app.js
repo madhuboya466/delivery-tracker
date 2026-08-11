@@ -58,7 +58,7 @@ function initForm() {
     document.getElementById('f-' + id).addEventListener('input', updateLiveCalc);
   });
 
-  document.getElementById('f-senthome').value = 700;
+  document.getElementById('f-senthome').value = 0;
 
   document.getElementById('btn-clear').addEventListener('click', () => resetForm());
 
@@ -161,7 +161,7 @@ async function saveEntry() {
 function resetForm() {
   document.getElementById('entry-form').reset();
   document.getElementById('f-date').value = todayISO();
-  document.getElementById('f-senthome').value = 700;
+  document.getElementById('f-senthome').value = 0;
   document.querySelectorAll('.field').forEach((f) => f.classList.remove('has-error'));
   document.querySelectorAll('input.invalid').forEach((i) => i.classList.remove('invalid'));
   updateLiveCalc();

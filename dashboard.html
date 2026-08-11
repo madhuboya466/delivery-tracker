@@ -270,11 +270,6 @@
 <script src="js/storage.js"></script>
 <script src="js/dashboard.js"></script>
 <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js');
-  }
-</script>
-<script>
   let deferredPrompt;
 
   window.addEventListener('beforeinstallprompt', (e) => {
